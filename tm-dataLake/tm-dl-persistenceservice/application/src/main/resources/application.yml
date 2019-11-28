@@ -1,0 +1,20 @@
+hbase:
+  zookeeperQuorum: "zkQuorum1,zkQuorum2,zkQuorum3"
+  zookeeperClientPort: "2181"
+
+rabbitmq:
+  host: "rabbitmq1"
+  port: "5672"
+  username: "admin"
+  password: "admin"
+  threadCount: "17"
+
+receiver:
+  dataQuery: "hbaseMaser"
+  mergeQuery: "dataMerge"
+  indexQuery: "indexCreate"
+  packageCount: "1000"
+  sendRate: "2000"
+
+elasticsearch:
+  uri: "http://es1:9200,http://es2:9200,http://es3:9200"

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxl.job.admin.dao.ExecutorChoiceDao">
+  <resultMap id="BaseResultMap" type="com.xxl.job.admin.core.model.ExecutorChoiceDo">
+    <id column="executorchoice_config_id" jdbcType="VARCHAR" property="executorchoiceConfigId" />
+    <result column="executorchoice_executor" jdbcType="VARCHAR" property="executorchoiceExecutor" />
+    <result column="executorchoice_location" jdbcType="VARCHAR" property="executorchoiceLocation" />
+    <result column="executorchoice_type" jdbcType="VARCHAR" property="executorchoiceType" />
+    <result column="executorchoice_uri" jdbcType="VARCHAR" property="executorchoiceUri" />
+    <result column="executorchoice_isenabled" jdbcType="BIT" property="executorchoiceIsenabled" />
+    <result column="executorchoice_createby" jdbcType="VARCHAR" property="executorchoiceCreateby" />
+    <result column="executorchoice_createdt" jdbcType="TIMESTAMP" property="executorchoiceCreatedt" />
+    <result column="executorchoice_modifiedby" jdbcType="VARCHAR" property="executorchoiceModifiedby" />
+    <result column="executorchoice_modifieddt" jdbcType="TIMESTAMP" property="executorchoiceModifieddt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    executorchoice_config_id, executorchoice_executor, executorchoice_location, executorchoice_type, 
+    executorchoice_uri, executorchoice_isenabled, executorchoice_createby, executorchoice_createdt, 
+    executorchoice_modifiedby, executorchoice_modifieddt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from executorchoice_config
+    where executorchoice_config_id = #{executorchoiceConfigId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from executorchoice_config
+    where executorchoice_isenabled = true
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from executorchoice_config
+    where executorchoice_config_id = #{executorchoiceConfigId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xxl.job.admin.core.model.ExecutorChoiceDo">
+    insert into executorchoice_config (executorchoice_config_id, executorchoice_executor, 
+      executorchoice_location, executorchoice_type, 
+      executorchoice_uri, executorchoice_isenabled, 
+      executorchoice_createby, executorchoice_createdt, 
+      executorchoice_modifiedby, executorchoice_modifieddt
+      )
+    values (#{executorchoiceConfigId,jdbcType=VARCHAR}, #{executorchoiceExecutor,jdbcType=VARCHAR}, 
+      #{executorchoiceLocation,jdbcType=VARCHAR}, #{executorchoiceType,jdbcType=VARCHAR}, 
+      #{executorchoiceUri,jdbcType=VARCHAR}, #{executorchoiceIsenabled,jdbcType=BIT}, 
+      #{executorchoiceCreateby,jdbcType=VARCHAR}, #{executorchoiceCreatedt,jdbcType=TIMESTAMP}, 
+      #{executorchoiceModifiedby,jdbcType=VARCHAR}, #{executorchoiceModifieddt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xxl.job.admin.core.model.ExecutorChoiceDo">
+    insert into executorchoice_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="executorchoiceConfigId != null">
+        executorchoice_config_id,
+      </if>
+      <if test="executorchoiceExecutor != null">
+        executorchoice_executor,
+      </if>
+      <if test="executorchoiceLocation != null">
+        executorchoice_location,
+      </if>
+      <if test="executorchoiceType != null">
+        executorchoice_type,
+      </if>
+      <if test="executorchoiceUri != null">
+        executorchoice_uri,
+      </if>
+      <if test="executorchoiceIsenabled != null">
+        executorchoice_isenabled,
+      </if>
+      <if test="executorchoiceCreateby != null">
+        executorchoice_createby,
+      </if>
+      <if test="executorchoiceCreatedt != null">
+        executorchoice_createdt,
+      </if>
+      <if test="executorchoiceModifiedby != null">
+        executorchoice_modifiedby,
+      </if>
+      <if test="executorchoiceModifieddt != null">
+        executorchoice_modifieddt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="executorchoiceConfigId != null">
+        #{executorchoiceConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceExecutor != null">
+        #{executorchoiceExecutor,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceLocation != null">
+        #{executorchoiceLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceType != null">
+        #{executorchoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceUri != null">
+        #{executorchoiceUri,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceIsenabled != null">
+        #{executorchoiceIsenabled,jdbcType=BIT},
+      </if>
+      <if test="executorchoiceCreateby != null">
+        #{executorchoiceCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceCreatedt != null">
+        #{executorchoiceCreatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="executorchoiceModifiedby != null">
+        #{executorchoiceModifiedby,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceModifieddt != null">
+        #{executorchoiceModifieddt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xxl.job.admin.core.model.ExecutorChoiceDo">
+    update executorchoice_config
+    <set>
+      <if test="executorchoiceExecutor != null">
+        executorchoice_executor = #{executorchoiceExecutor,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceLocation != null">
+        executorchoice_location = #{executorchoiceLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceType != null">
+        executorchoice_type = #{executorchoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceUri != null">
+        executorchoice_uri = #{executorchoiceUri,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceIsenabled != null">
+        executorchoice_isenabled = #{executorchoiceIsenabled,jdbcType=BIT},
+      </if>
+      <if test="executorchoiceCreateby != null">
+        executorchoice_createby = #{executorchoiceCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceCreatedt != null">
+        executorchoice_createdt = #{executorchoiceCreatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="executorchoiceModifiedby != null">
+        executorchoice_modifiedby = #{executorchoiceModifiedby,jdbcType=VARCHAR},
+      </if>
+      <if test="executorchoiceModifieddt != null">
+        executorchoice_modifieddt = #{executorchoiceModifieddt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where executorchoice_config_id = #{executorchoiceConfigId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xxl.job.admin.core.model.ExecutorChoiceDo">
+    update executorchoice_config
+    set executorchoice_executor = #{executorchoiceExecutor,jdbcType=VARCHAR},
+      executorchoice_location = #{executorchoiceLocation,jdbcType=VARCHAR},
+      executorchoice_type = #{executorchoiceType,jdbcType=VARCHAR},
+      executorchoice_uri = #{executorchoiceUri,jdbcType=VARCHAR},
+      executorchoice_isenabled = #{executorchoiceIsenabled,jdbcType=BIT},
+      executorchoice_createby = #{executorchoiceCreateby,jdbcType=VARCHAR},
+      executorchoice_createdt = #{executorchoiceCreatedt,jdbcType=TIMESTAMP},
+      executorchoice_modifiedby = #{executorchoiceModifiedby,jdbcType=VARCHAR},
+      executorchoice_modifieddt = #{executorchoiceModifieddt,jdbcType=TIMESTAMP}
+    where executorchoice_config_id = #{executorchoiceConfigId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,9 @@
+1.运行参数：{\"dprunclass\":\"com.tm.dl.javasdk.dpspark.hbase.DPHbaseTest\",\"dpappName\":\"hbase-bulkwrite-test\",\"dpuserid\":\"8F70E561-ED63-4B88-A343-UIDE89FF9156\",\"dpmaster\":\"local[*]\",\"pmClass\":\"com.tm.dl.javasdk.dpspark.common.ProdPermissionManager\",\"dpType\":\"scheduling\"}
+2.需要通过scala:compile install 进行编译
+
+
+
+1.配置好maven的环境变量
+2.开启命令行，进入jar目录
+3.执行以下指令安装jiar到本地仓库
+mvn install:install-file -Dfile=civet-oauth-client-1.0.0.jar -DgroupId=com.foxconn -DartifactId=civet-oauth-client -Dversion=1.0.0 -Dpackaging=jar

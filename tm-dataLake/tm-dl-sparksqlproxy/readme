@@ -1,0 +1,32 @@
+spark-submit --class com.treasuremountain.datalake.sparksqlproxy.SQLProxy \
+--master yarn-cluster \
+--deploy-mode cluster \
+--queue dp_queue \
+--conf spark.driver.memory=4g \
+--conf spark.executor.memory=4g \
+--conf spark.dynamicAllocation.maxExecutors=40 \
+--conf spark.dynamicAllocation.minExecutors=0 \
+--conf spark.dynamicAllocation.executorIdleTimeout=30s \
+--conf spark.dynamicAllocation.schedulerBacklogTimeout=10s \
+hdfs://namenode2:8020/spark_jar/dasysadmin/ab439cf4-72d0-4d3b-b463-43116a34f1f1/sparksqlproxy-1.0-SNAPSHOT-jar-with-dependencies.jar \
+"{\"tables\":[{\"tableName\":\"station_test_result20190521103901\",\"isSalt\":\"true\",\"startRowKey\":\"1561654034000\",\"endRowKey\":\"1561654035000\"}],\"sql\":\"select station_test_result_bu from station_test_result20190521103901 group by  station_test_result_bu  limit 50\",\"mqName\":\"a983e8df-b8b9-4b86-981c-eb25738e9200\",\"dpbusinessid\":\"12\"} "
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+com.treasuremountain.datalake.sparksqlproxy.SQLProxy
+
+
+"{\"tables\":[{\"tableName\":\"sys_uuid_ref20190704134614\",\"isSalt\":\"true\",\"startRowKey\":\"1562177503000\",\"endRowKey\":\"1562242303000\"}],\"sql\":\"select * from sys_uuid_ref20190704134614\",\"mqName\":\"de7ba41f-53ca-4d06-b332-b0c02176022e\",\"dpbusinessid\":\"11\"}"

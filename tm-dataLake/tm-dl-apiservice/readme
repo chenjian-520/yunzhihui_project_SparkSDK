@@ -1,0 +1,10 @@
+--配置運行環境
+
+---
+CREATE EXTERNAL TABLE  mfg_assembly_detail(key string, bu string,custpn string,emp_id string,filename string,hhpn string,id string,is_disassembly string,keypart_sn string,line_id string,part_name string,scantime string,scantime_stamp bigint,station_name string)
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,mfg_assembly_detail:bu,mfg_assembly_detail:custpn,mfg_assembly_detail:emp_id,mfg_assembly_detail:filename,mfg_assembly_detail:hhpn,mfg_assembly_detail:id,mfg_assembly_detail:is_disassembly,mfg_assembly_detail:keypart_sn,mfg_assembly_detail:line_id,mfg_assembly_detail:part_name,mfg_assembly_detail:scantime,mfg_assembly_detail:scantime_stamp,mfg_assembly_detail:station_name")
+TBLPROPERTIES("hbase.table.name" = "mfg_assembly_detail20190509094809");
+
+
+IF NOT EXISTS

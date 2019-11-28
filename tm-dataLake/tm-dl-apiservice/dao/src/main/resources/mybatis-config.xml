@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--    <settings>-->
+<!--         <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+<!--    </settings>-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="param1" value="value1"/>
+        </plugin>
+    </plugins>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://dpmysql1:3306/datalake?useSSL=false&amp;allowMultiQueries=true"/>
+                <property name="username" value="datalake"/>
+                <property name="password" value="Foxconn1@#"/>
+                <property name="poolPingEnabled" value="true"/>
+                <property name="poolPingQuery" value="select 1"/>
+                <property name="poolPingConnectionsNotUsedFor" value="3600000"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mapper/BusinessConfigDoMapper.xml"/>
+        <mapper resource="mapper/ExchangeConfigDoMapper.xml"/>
+        <mapper resource="mapper/HBcolumnConfigDoMapper.xml"/>
+        <mapper resource="mapper/HBcolumnfamilyConfigDoMapper.xml"/>
+        <mapper resource="mapper/HBtableConfigDoMapper.xml"/>
+        <mapper resource="mapper/RelationtableConfigDoMapper.xml"/>
+        <mapper resource="mapper/IndexlogDoMapper.xml"/>
+        <mapper resource="mapper/TablelogDoMapper.xml"/>
+        <mapper resource="mapper/KafkaConfigDoMapper.xml"/>
+    </mappers>
+</configuration>
+

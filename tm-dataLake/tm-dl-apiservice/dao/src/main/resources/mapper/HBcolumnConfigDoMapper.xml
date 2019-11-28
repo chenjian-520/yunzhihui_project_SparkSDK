@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.treasuremountain.datalake.dlapiservice.dao.mysql.mapper.HBcolumnConfigDoMapper">
+    <resultMap id="BaseResultMap" type="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBcolumnConfigDo">
+        <id column="hbcolumn_id" jdbcType="VARCHAR" property="hbcolumnId"/>
+        <result column="hbcolumnfamily_id" jdbcType="VARCHAR" property="hbcolumnfamilyId"/>
+        <result column="hbcolumn_name" jdbcType="VARCHAR" property="hbcolumnName"/>
+        <result column="hbcolumn_isenable" jdbcType="BIT" property="hbcolumnIsenable"/>
+        <result column="hbcolumn_isindex" jdbcType="BIT" property="hbcolumnIsindex"/>
+        <result column="hbcolumn_desc" jdbcType="VARCHAR" property="hbcolumnDesc"/>
+        <result column="hbcolumn_modifiedby" jdbcType="VARCHAR" property="hbcolumnModifiedby"/>
+        <result column="hbcolumn_modifieddt" jdbcType="TIMESTAMP" property="hbcolumnModifieddt"/>
+        <result column="hbcolumn_createby" jdbcType="VARCHAR" property="hbcolumnCreateby"/>
+        <result column="hbcolumn_createdt" jdbcType="TIMESTAMP" property="hbcolumnCreatedt"/>
+        <result column="hbcolumn_type" jdbcType="VARCHAR" property="hbcolumnType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    hbcolumn_id, hbcolumnfamily_id, hbcolumn_name,hbcolumn_isenable, hbcolumn_isindex,hbcolumn_desc,hbcolumn_modifiedby,
+    hbcolumn_modifieddt, hbcolumn_createby, hbcolumn_createdt,hbcolumn_type
+  </sql>
+    <select id="selectSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBcolumnConfigDo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbcolumn_config
+        where 1=1
+        <if test="hbcolumnId != null">
+            and hbcolumn_id = #{hbcolumnId,jdbcType=VARCHAR}
+        </if>
+        <if test="hbcolumnfamilyId != null">
+            and hbcolumnfamily_id = #{hbcolumnfamilyId,jdbcType=VARCHAR}
+        </if>
+        <if test="hbcolumnName != null">
+            and hbcolumn_name = #{hbcolumnName,jdbcType=VARCHAR}
+        </if>
+        <if test="hbcolumnIsenable != null">
+            and hbcolumn_isenable=#{hbcolumnIsenable,jdbcType=BIT}
+        </if>
+        <if test="hbcolumnIsindex != null">
+            and hbcolumn_isindex = #{hbcolumnIsindex,jdbcType=BIT}
+        </if>
+        <if test="hbcolumnModifiedby != null">
+            and hbcolumn_modifiedby = #{hbcolumnModifiedby,jdbcType=VARCHAR}
+        </if>
+        <if test="hbcolumnModifieddt != null">
+            and hbcolumn_modifieddt = #{hbcolumnModifieddt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="hbcolumnCreateby != null">
+            and hbcolumn_createby = #{hbcolumnCreateby,jdbcType=VARCHAR}
+        </if>
+        <if test="hbcolumnCreatedt != null">
+            and hbcolumn_createdt = #{hbcolumnCreatedt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="hbcolumnType != null">
+            and hbcolumn_type = #{hbcolumnType,jdbcType=VARCHAR}
+        </if>
+        order by hbcolumn_createdt
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbcolumn_config
+        where hbcolumn_id = #{hbcolumnId,jdbcType=VARCHAR}
+        and hbcolumn_isenable=true order by hbcolumn_createdt
+    </select>
+    <select id="selectByPrimaryKeyList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbcolumn_config as t1
+        where t1.hbcolumn_id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and t1.hbcolumn_isenable=true order by t1.hbcolumn_createdt
+    </select>
+    <select id="selectByhbcolumnfamilyId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbcolumn_config
+        where hbcolumnfamily_id = #{hbcolumnfamilyId,jdbcType=VARCHAR}
+        and hbcolumn_isenable=true order by hbcolumn_createdt
+    </select>
+    <select id="selectByhbcolumnfamilyIdList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbcolumn_config as t1
+        where t1.hbcolumnfamily_id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and t1.hbcolumn_isenable=true order by t1.hbcolumn_createdt
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from hbcolumn_config
+    where hbcolumn_id = #{hbcolumnId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBcolumnConfigDo">
+    insert into hbcolumn_config (hbcolumn_id, hbcolumnfamily_id, hbcolumn_name, hbcolumn_isenable,
+      hbcolumn_isindex,hbcolumn_desc, hbcolumn_modifiedby, hbcolumn_modifieddt,
+      hbcolumn_createby, hbcolumn_createdt,hbcolumn_type)
+    values (#{hbcolumnId,jdbcType=VARCHAR}, #{hbcolumnfamilyId,jdbcType=VARCHAR}, #{hbcolumnName,jdbcType=VARCHAR},
+     #{hbcolumnIsenable,jdbcType=BIT},
+      #{hbcolumnIsindex,jdbcType=VARCHAR},
+      #{hbcolumnDesc,jdbcType=BIT},
+      #{hbcolumnModifiedby,jdbcType=VARCHAR}, #{hbcolumnModifieddt,jdbcType=TIMESTAMP},
+      #{hbcolumnCreateby,jdbcType=VARCHAR}, #{hbcolumnCreatedt,jdbcType=TIMESTAMP},#{hbcolumnType,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBcolumnConfigDo">
+        insert into hbcolumn_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hbcolumnId != null">
+                hbcolumn_id,
+            </if>
+            <if test="hbcolumnfamilyId != null">
+                hbcolumnfamily_id,
+            </if>
+            <if test="hbcolumnName != null">
+                hbcolumn_name,
+            </if>
+            <if test="hbcolumnIsenable != null">
+                hbcolumn_isenable,
+            </if>
+            <if test="hbcolumnIsindex != null">
+                hbcolumn_isindex,
+            </if>
+            <if test="hbcolumnDesc != null">
+                hbcolumn_desc,
+            </if>
+            <if test="hbcolumnModifiedby != null">
+                hbcolumn_modifiedby,
+            </if>
+            <if test="hbcolumnModifieddt != null">
+                hbcolumn_modifieddt,
+            </if>
+            <if test="hbcolumnCreateby != null">
+                hbcolumn_createby,
+            </if>
+            <if test="hbcolumnCreatedt != null">
+                hbcolumn_createdt,
+            </if>
+            <if test="hbcolumnType!=null">
+                hbcolumn_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hbcolumnId != null">
+                #{hbcolumnId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnfamilyId != null">
+                #{hbcolumnfamilyId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnName != null">
+                #{hbcolumnName,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnIsenable != null">
+                #{hbcolumnIsenable,jdbcType=BIT}
+            </if>
+            <if test="hbcolumnIsindex != null">
+                #{hbcolumnIsindex,jdbcType=BIT},
+            </if>
+            <if test="hbcolumnDesc != null">
+                #{hbcolumnDesc,jdbcType=BIT},
+            </if>
+            <if test="hbcolumnModifiedby != null">
+                #{hbcolumnModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnModifieddt != null">
+                #{hbcolumnModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hbcolumnCreateby != null">
+                #{hbcolumnCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnCreatedt != null">
+                #{hbcolumnCreatedt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hbcolumnType != null">
+                #{hbcolumnType,jdbcType=VARCHAR},
+            </if>
+
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBcolumnConfigDo">
+        update hbcolumn_config
+        <set>
+            <if test="hbcolumnfamilyId != null">
+                hbcolumnfamily_id = #{hbcolumnfamilyId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnName != null">
+                hbcolumn_name = #{hbcolumnName,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnIsenable != null">
+                hbcolumn_isenable=#{hbcolumnIsenable,jdbcType=BIT},
+            </if>
+            <if test="hbcolumnIsindex != null">
+                hbcolumn_isindex = #{hbcolumnIsindex,jdbcType=BIT},
+            </if>
+            <if test="hbcolumnDesc != null">
+                hbcolumn_desc = #{hbcolumnDesc,jdbcType=BIT},
+            </if>
+            <if test="hbcolumnModifiedby != null">
+                hbcolumn_modifiedby = #{hbcolumnModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnModifieddt != null">
+                hbcolumn_modifieddt = #{hbcolumnModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hbcolumnCreateby != null">
+                hbcolumn_createby = #{hbcolumnCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnCreatedt != null">
+                hbcolumn_createdt = #{hbcolumnCreatedt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hbcolumnType != null">
+                hbcolumn_type = #{hbcolumnType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where hbcolumn_id = #{hbcolumnId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBcolumnConfigDo">
+        update hbcolumn_config
+        <set>
+            <if test="hbcolumnfamilyId != null">
+                hbcolumnfamily_id = #{hbcolumnfamilyId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnName != null">
+                hbcolumn_name = #{hbcolumnName,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnIsenable != null">
+                hbcolumn_isenable=#{hbcolumnIsenable,jdbcType=BIT},
+            </if>
+            <if test="hbcolumnIsindex != null">
+                hbcolumn_isindex = #{hbcolumnIsindex,jdbcType=BIT},
+            </if>
+            <if test="hbcolumnDesc != null">
+                hbcolumn_desc = #{hbcolumnDesc,jdbcType=BIT},
+            </if>
+            <if test="hbcolumnModifiedby != null">
+                hbcolumn_modifiedby = #{hbcolumnModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnModifieddt != null">
+                hbcolumn_modifieddt = #{hbcolumnModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hbcolumnCreateby != null">
+                hbcolumn_createby = #{hbcolumnCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnCreatedt != null">
+                hbcolumn_createdt = #{hbcolumnCreatedt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hbcolumnType != null">
+                hbcolumn_type = #{hbcolumnType,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where
+        1=1
+        <if test="hbcolumnId != null">
+            and hbcolumn_id = #{hbcolumnId,jdbcType=VARCHAR}
+        </if>
+        <if test="hbcolumnfamilyId != null">
+            and hbcolumnfamily_id = #{hbcolumnfamilyId,jdbcType=VARCHAR}
+        </if>
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBcolumnConfigDo">
+    update hbcolumn_config
+    set hbcolumnfamily_id = #{hbcolumnfamilyId,jdbcType=VARCHAR},
+      hbcolumn_name = #{hbcolumnName,jdbcType=VARCHAR},
+      hbcolumn_isenable=#{hbcolumnIsenable,jdbcType=BIT},
+      hbcolumn_isindex = #{hbcolumnIsindex,jdbcType=BIT},
+      hbcolumn_desc = #{hbcolumnDesc,jdbcType=BIT},
+      hbcolumn_modifiedby = #{hbcolumnModifiedby,jdbcType=VARCHAR},
+      hbcolumn_modifieddt = #{hbcolumnModifieddt,jdbcType=TIMESTAMP},
+      hbcolumn_type = #{hbcolumnType,jdbcType=VARCHAR}
+    where hbcolumn_id = #{hbcolumnId,jdbcType=VARCHAR}
+  </update>
+</mapper>

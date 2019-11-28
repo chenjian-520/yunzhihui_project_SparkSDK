@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.treasuremountain.datalake.dlapiservice.dao.mysql.mapper.RelationtableConfigDoMapper">
+    <resultMap id="BaseResultMap"
+               type="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.RelationtableConfigDo">
+        <id column="relationtable_id" jdbcType="VARCHAR" property="relationtableId"/>
+        <result column="business_id" jdbcType="VARCHAR" property="businessId"/>
+        <result column="business_name" jdbcType="VARCHAR" property="businessName"/>
+        <result column="hbtable_id" jdbcType="VARCHAR" property="hbtableId"/>
+        <result column="hbtable_name" jdbcType="VARCHAR" property="hbtableName"/>
+        <result column="msgkey" jdbcType="VARCHAR" property="msgkey"/>
+        <result column="hbcolumnfamily_id" jdbcType="VARCHAR" property="hbcolumnfamilyId"/>
+        <result column="hbcolumnfamily_name" jdbcType="VARCHAR" property="hbcolumnfamilyName"/>
+        <result column="hbcolumn_id" jdbcType="VARCHAR" property="hbcolumnId"/>
+        <result column="hbcolumn_name" jdbcType="VARCHAR" property="hbcolumnName"/>
+        <result column="hbcolumn_type" jdbcType="VARCHAR" property="hbcolumnType"/>
+        <result column="relationtable_isenable" jdbcType="BIT" property="relationtableIsenable"/>
+        <result column="relationtable_modifiedby" jdbcType="VARCHAR" property="relationtableModifiedby"/>
+        <result column="relationtable_modifieddt" jdbcType="TIMESTAMP" property="relationtableModifieddt"/>
+        <result column="relationtable_createby" jdbcType="VARCHAR" property="relationtableCreateby"/>
+        <result column="relationtable_createdt" jdbcType="TIMESTAMP" property="relationtableCreatedt"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    relationtable_id, business_id, hbtable_id, msgkey, hbcolumnfamily_id, hbcolumn_id, relationtable_modifiedby,
+    relationtable_modifieddt, relationtable_createby, relationtable_createdt
+  </sql>
+    <sql id="Base_Custom_Column_List">
+    t1.*,t2.business_name,t3.hbtable_name,t4.hbcolumnfamily_name,t5.hbcolumn_name,t5.hbcolumn_type
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from relationtable_config
+        where relationtable_id = #{relationtableId,jdbcType=VARCHAR}
+        and relationtable_isenable=true
+    </select>
+    <select id="selectSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.RelationtableConfigDo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Custom_Column_List"/>
+        from relationtable_config as t1 left join  business_config as t2 on t2.business_id=t1.business_id
+        left  join hbtable_config as t3 on t3.hbtable_id=t1.hbtable_id left join hbcolumnfamily_config as t4
+        on t4.hbcolumnfamily_id=t1.hbcolumnfamily_id left join hbcolumn_config as t5 on t5.hbcolumn_id=t1.hbcolumn_id
+        where 1=1
+        <if test="relationtableId != null">
+            and t1.relationtable_id= #{relationtableId,jdbcType=VARCHAR}
+        </if>
+        <if test="businessId != null">
+            and t1.business_id= #{businessId,jdbcType=VARCHAR}
+        </if>
+        <if test="hbtableId != null">
+            and t1.hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+        </if>
+        <if test="msgkey != null">
+            and t1.msgkey = #{msgkey,jdbcType=VARCHAR}
+        </if>
+        <if test="hbcolumnfamilyId != null">
+            and t1.hbcolumnfamily_id = #{hbcolumnfamilyId,jdbcType=VARCHAR}
+        </if>
+        <if test="hbcolumnId != null">
+            and t1.hbcolumn_id = #{hbcolumnId,jdbcType=VARCHAR}
+        </if>
+        <if test="relationtableIsenable != null">
+            and t1.relationtable_isenable = #{relationtableIsenable,jdbcType=BIT}
+        </if>
+        <if test="relationtableModifiedby != null">
+            and t1.relationtable_modifiedby = #{relationtableModifiedby,jdbcType=VARCHAR}
+        </if>
+        <if test="relationtableModifieddt != null">
+            and t1.relationtable_modifieddt = #{relationtableModifieddt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="relationtableCreateby != null">
+            and t1.relationtable_createby = #{relationtableCreateby,jdbcType=VARCHAR}
+        </if>
+        <if test="relationtableCreatedt != null">
+            and t1.relationtable_createdt = #{relationtableCreatedt,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from relationtable_config
+    where relationtable_id = #{relationtableId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.RelationtableConfigDo">
+    insert into relationtable_config (relationtable_id,business_id, hbtable_id, msgkey,
+      hbcolumnfamily_id, hbcolumn_id, relationtable_isenable,relationtable_modifiedby,
+      relationtable_modifieddt, relationtable_createby, 
+      relationtable_createdt)
+    values (#{relationtableId,jdbcType=VARCHAR},#{businessId,jdbcType=VARCHAR}, #{hbtableId,jdbcType=VARCHAR}, #{msgkey,jdbcType=VARCHAR},
+      #{hbcolumnfamilyId,jdbcType=VARCHAR}, #{hbcolumnId,jdbcType=VARCHAR}, #{relationtableIsenable,jdbcType=BIT}, #{relationtableModifiedby,jdbcType=VARCHAR},
+      #{relationtableModifieddt,jdbcType=TIMESTAMP}, #{relationtableCreateby,jdbcType=VARCHAR}, 
+      #{relationtableCreatedt,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.RelationtableConfigDo">
+        insert into relationtable_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="relationtableId != null">
+                relationtable_id,
+            </if>
+            <if test="businessId != null">
+                business_id,
+            </if>
+            <if test="hbtableId != null">
+                hbtable_id,
+            </if>
+            <if test="msgkey != null">
+                msgkey,
+            </if>
+            <if test="hbcolumnfamilyId != null">
+                hbcolumnfamily_id,
+            </if>
+            <if test="hbcolumnId != null">
+                hbcolumn_id,
+            </if>
+            <if test="relationtableIsenable != null">
+                relationtable_isenable,
+            </if>
+            <if test="relationtableModifiedby != null">
+                relationtable_modifiedby,
+            </if>
+            <if test="relationtableModifieddt != null">
+                relationtable_modifieddt,
+            </if>
+            <if test="relationtableCreateby != null">
+                relationtable_createby,
+            </if>
+            <if test="relationtableCreatedt != null">
+                relationtable_createdt,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="relationtableId != null">
+                #{relationtableId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessId != null">
+                #{businessId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableId != null">
+                #{hbtableId,jdbcType=VARCHAR},
+            </if>
+            <if test="msgkey != null">
+                #{msgkey,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnfamilyId != null">
+                #{hbcolumnfamilyId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnId != null">
+                #{hbcolumnId,jdbcType=VARCHAR},
+            </if>
+            <if test="relationtableIsenable != null">
+                #{relationtable_isenable,jdbcType=BIT},
+            </if>
+            <if test="relationtableModifiedby != null">
+                #{relationtableModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="relationtableModifieddt != null">
+                #{relationtableModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="relationtableCreateby != null">
+                #{relationtableCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="relationtableCreatedt != null">
+                #{relationtableCreatedt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.RelationtableConfigDo">
+        update relationtable_config
+        <set>
+            <if test="businessId != null">
+                business_id= #{businessId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableId != null">
+                hbtable_id = #{hbtableId,jdbcType=VARCHAR},
+            </if>
+            <if test="msgkey != null">
+                msgkey = #{msgkey,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnfamilyId != null">
+                hbcolumnfamily_id = #{hbcolumnfamilyId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnId != null">
+                hbcolumn_id = #{hbcolumnId,jdbcType=VARCHAR},
+            </if>
+            <if test="relationtableIsenable != null">
+                relationtable_isenable = #{relationtableIsenable,jdbcType=BIT},
+            </if>
+            <if test="relationtableModifiedby != null">
+                relationtable_modifiedby = #{relationtableModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="relationtableModifieddt != null">
+                relationtable_modifieddt = #{relationtableModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="relationtableCreateby != null">
+                relationtable_createby = #{relationtableCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="relationtableCreatedt != null">
+                relationtable_createdt = #{relationtableCreatedt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where relationtable_id = #{relationtableId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.RelationtableConfigDo">
+    update relationtable_config
+    set
+      business_id= #{businessId,jdbcType=VARCHAR},
+      hbtable_id = #{hbtableId,jdbcType=VARCHAR},
+      msgkey = #{msgkey,jdbcType=VARCHAR},
+      hbcolumnfamily_id = #{hbcolumnfamilyId,jdbcType=VARCHAR},
+      hbcolumn_id = #{hbcolumnId,jdbcType=VARCHAR},
+      relationtable_isenable = #{relationtableIsenable,jdbcType=BIT},
+      relationtable_modifiedby = #{relationtableModifiedby,jdbcType=VARCHAR},
+      relationtable_modifieddt = #{relationtableModifieddt,jdbcType=TIMESTAMP}
+    where relationtable_id = #{relationtableId,jdbcType=VARCHAR}
+  </update>
+    <update id="updateBybusinessIdSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.RelationtableConfigDo">
+        update relationtable_config
+        <set>
+            <if test="relationtableId != null">
+                relationtable_id= #{relationtableId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableId != null">
+                hbtable_id = #{hbtableId,jdbcType=VARCHAR},
+            </if>
+            <if test="msgkey != null">
+                msgkey = #{msgkey,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnfamilyId != null">
+                hbcolumnfamily_id = #{hbcolumnfamilyId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbcolumnId != null">
+                hbcolumn_id = #{hbcolumnId,jdbcType=VARCHAR},
+            </if>
+            <if test="relationtableIsenable != null">
+                relationtable_isenable = #{relationtableIsenable,jdbcType=BIT},
+            </if>
+            <if test="relationtableModifiedby != null">
+                relationtable_modifiedby = #{relationtableModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="relationtableModifieddt != null">
+                relationtable_modifieddt = #{relationtableModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="relationtableCreateby != null">
+                relationtable_createby = #{relationtableCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="relationtableCreatedt != null">
+                relationtable_createdt = #{relationtableCreatedt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where
+        business_id = #{businessId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

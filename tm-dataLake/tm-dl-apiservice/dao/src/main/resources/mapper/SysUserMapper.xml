@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.treasuremountain.datalake.dlapiservice.dao.mysql.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.SysUserDo">
+        <id column="user_account" jdbcType="VARCHAR" property="userAccount"/>
+        <result column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_password" jdbcType="VARCHAR" property="userPassword"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <!--<result column="user_authority" jdbcType="VARCHAR" property="userAuthority"/>-->
+        <result column="user_parent_id" jdbcType="VARCHAR" property="userParentId"/>
+        <result column="user_email" jdbcType="VARCHAR" property="userEmail"/>
+        <result column="user_account_status" jdbcType="INTEGER" property="userAccountStatus"/>
+        <result column="user_password_update_code" jdbcType="VARCHAR" property="userPasswordUpdateCode"/>
+        <result column="editor" jdbcType="VARCHAR" property="editor"/>
+        <result column="is_active" jdbcType="BIT" property="isActive"/>
+        <result column="edit_date" jdbcType="TIMESTAMP" property="editDate"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_account, id, user_password, user_name, user_parent_id, user_email,user_account_status,user_password_update_code,editor,
+    is_active, edit_date, description
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where user_account = #{userAccount,jdbcType=VARCHAR} and is_active = true
+    </select>
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where id = #{uid,jdbcType=VARCHAR} and is_active = true
+    </select>
+    <select id="selectByUserAccount" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where user_account = #{userAccount,jdbcType=VARCHAR}
+    </select>
+    <select id="selectTenatChild" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where user_parent_id = #{pid,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_user
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.SysUserDo">
+    insert into sys_user (user_account, id, user_password,
+      user_name, user_parent_id,
+      user_email, is_active, edit_date,
+      description)
+    values (#{userAccount,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR},
+      #{userName,jdbcType=VARCHAR}, #{userParentId,jdbcType=VARCHAR},
+      #{userEmail,jdbcType=VARCHAR}, #{isActive,jdbcType=BIT}, #{editDate,jdbcType=TIMESTAMP},
+      #{description,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.SysUserDo">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userAccount != null">
+                user_account,
+            </if>
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userPassword != null">
+                user_password,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="userParentId != null">
+                user_parent_id,
+            </if>
+            <if test="userEmail != null">
+                user_email,
+            </if>
+            <if test="isActive != null">
+                is_active,
+            </if>
+            <if test="editDate != null">
+                edit_date,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userAccount != null">
+                #{userAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null">
+                #{userPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userParentId != null">
+                #{userParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="userEmail != null">
+                #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null">
+                #{isActive,jdbcType=BIT},
+            </if>
+            <if test="editDate != null">
+                #{editDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.SysUserDo">
+        update sys_user
+        <set>
+            <if test="id != null">
+                id = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userPassword != null">
+                user_password = #{userPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userParentId != null">
+                user_parent_id = #{userParentId,jdbcType=VARCHAR},
+            </if>
+            <if test="userEmail != null">
+                user_email = #{userEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="userAccountStatus != null">
+                user_account_status = #{userAccountStatus,jdbcType=INTEGER},
+            </if>
+            <if test="userPasswordUpdateCode != null">
+                user_password_update_code = #{userPasswordUpdateCode,jdbcType=VARCHAR},
+            </if>
+            <if test="editor != null">
+                editor = #{editor,jdbcType=VARCHAR},
+            </if>
+            <if test="isActive != null">
+                is_active = #{isActive,jdbcType=BIT},
+            </if>
+            <if test="editDate != null">
+                edit_date = #{editDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_account = #{userAccount,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.SysUserDo">
+    update sys_user
+    set id = #{id,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_parent_id = #{userParentId,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      is_active = #{isActive,jdbcType=BIT},
+      edit_date = #{editDate,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR}
+    where user_account = #{userAccount,jdbcType=VARCHAR}
+  </update>
+</mapper>

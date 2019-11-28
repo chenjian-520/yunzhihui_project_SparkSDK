@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.treasuremountain.datalake.dlapiservice.dao.mysql.mapper.IndexlogDoMapper">
+    <resultMap id="BaseResultMap" type="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.IndexlogDo">
+        <id column="indexlog_id" jdbcType="VARCHAR" property="indexlogId"/>
+        <result column="hbtable_id" jdbcType="VARCHAR" property="hbtableId"/>
+        <result column="indexlog_name" jdbcType="VARCHAR" property="indexlogName"/>
+        <result column="indexlog_createtime" jdbcType="TIMESTAMP" property="indexlogCreatetime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    indexlog_id, hbtable_id, indexlog_name, indexlog_createtime
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from indexlog
+        where indexlog_id = #{indexlogId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectSelective" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.IndexlogDo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from indexlog as t1
+        where 1=1
+        <if test="indexlogId != null">
+            and t1.indexlog_id = #{indexlogId,jdbcType=VARCHAR}
+        </if>
+        <if test="hbtableId != null">
+            and t1.hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+        </if>
+        <if test="indexlogName != null">
+            and t1.indexlog_name = #{indexlogName,jdbcType=VARCHAR}
+        </if>
+        <if test="indexlogCreatetime != null">
+            and t1.indexlog_createtime = #{indexlogCreatetime,jdbcType=TIMESTAMP}
+        </if>
+        order by t1.indexlog_createtime desc
+    </select>
+
+    <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from indexlog order by indexlog_createtime
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from indexlog
+    where indexlog_id = #{indexlogId,jdbcType=VARCHAR}
+  </delete>
+    <delete id="deleteByTableAndName"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.IndexlogDo">
+    delete from indexlog
+    where hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+    and indexlog_name = #{indexlogName,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.IndexlogDo">
+    insert into indexlog (indexlog_id, hbtable_id, indexlog_name, 
+      indexlog_createtime)
+    values (#{indexlogId,jdbcType=VARCHAR}, #{hbtableId,jdbcType=VARCHAR}, #{indexlogName,jdbcType=VARCHAR}, 
+      #{indexlogCreatetime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.IndexlogDo">
+        insert into indexlog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="indexlogId != null">
+                indexlog_id,
+            </if>
+            <if test="hbtableId != null">
+                hbtable_id,
+            </if>
+            <if test="indexlogName != null">
+                indexlog_name,
+            </if>
+            <if test="indexlogCreatetime != null">
+                indexlog_createtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="indexlogId != null">
+                #{indexlogId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableId != null">
+                #{hbtableId,jdbcType=VARCHAR},
+            </if>
+            <if test="indexlogName != null">
+                #{indexlogName,jdbcType=VARCHAR},
+            </if>
+            <if test="indexlogCreatetime != null">
+                #{indexlogCreatetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.IndexlogDo">
+        update indexlog
+        <set>
+            <if test="hbtableId != null">
+                hbtable_id = #{hbtableId,jdbcType=VARCHAR},
+            </if>
+            <if test="indexlogName != null">
+                indexlog_name = #{indexlogName,jdbcType=VARCHAR},
+            </if>
+            <if test="indexlogCreatetime != null">
+                indexlog_createtime = #{indexlogCreatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where indexlog_id = #{indexlogId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.IndexlogDo">
+    update indexlog
+    set hbtable_id = #{hbtableId,jdbcType=VARCHAR},
+      indexlog_name = #{indexlogName,jdbcType=VARCHAR}
+    where indexlog_id = #{indexlogId,jdbcType=VARCHAR}
+  </update>
+</mapper>

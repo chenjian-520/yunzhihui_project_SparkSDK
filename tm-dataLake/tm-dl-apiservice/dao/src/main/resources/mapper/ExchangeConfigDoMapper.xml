@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.treasuremountain.datalake.dlapiservice.dao.mysql.mapper.ExchangeConfigDoMapper">
+    <resultMap id="BaseResultMap" type="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.ExchangeConfigDo">
+        <id column="exchange_id" jdbcType="VARCHAR" property="exchangeId"/>
+        <result column="exchange_name" jdbcType="VARCHAR" property="exchangeName"/>
+        <result column="exchange_isenable" jdbcType="BIT" property="exchangeIsenable"/>
+        <result column="exchange_modifiedby" jdbcType="VARCHAR" property="exchangeModifiedby"/>
+        <result column="exchange_modifieddt" jdbcType="TIMESTAMP" property="exchangeModifieddt"/>
+        <result column="exchange_createby" jdbcType="VARCHAR" property="exchangeCreateby"/>
+        <result column="exchange_createdt" jdbcType="TIMESTAMP" property="exchangeCreatedt"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    exchange_id, exchange_name,exchange_isenable, exchange_modifiedby, exchange_modifieddt, exchange_createby,
+    exchange_createdt
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from exchange_config
+        where exchange_id = #{exchangeId,jdbcType=VARCHAR}
+        and exchange_isenable=true
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from exchange_config
+    where exchange_id = #{exchangeId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.ExchangeConfigDo">
+    insert into exchange_config (exchange_id, exchange_name,exchange_isenable, exchange_modifiedby,
+      exchange_modifieddt, exchange_createby, 
+      exchange_createdt)
+    values (#{exchangeId,jdbcType=VARCHAR}, #{exchangeName,jdbcType=VARCHAR},#{exchangeIsenable,jdbcType=BIT}, #{exchangeModifiedby,jdbcType=VARCHAR},
+      #{exchangeModifieddt,jdbcType=TIMESTAMP}, #{exchangeCreateby,jdbcType=VARCHAR}, 
+      #{exchangeCreatedt,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.ExchangeConfigDo">
+        insert into exchange_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="exchangeId != null">
+                exchange_id,
+            </if>
+            <if test="exchangeName != null">
+                exchange_name,
+            </if>
+            <if test="exchangeIsenable != null">
+                exchange_isenable,
+            </if>
+            <if test="exchangeModifiedby != null">
+                exchange_modifiedby,
+            </if>
+            <if test="exchangeModifieddt != null">
+                exchange_modifieddt,
+            </if>
+            <if test="exchangeCreateby != null">
+                exchange_createby,
+            </if>
+            <if test="exchangeCreatedt != null">
+                exchange_createdt,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="exchangeId != null">
+                #{exchangeId,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeName != null">
+                #{exchangeName,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeIsenable != null">
+                #{exchangeIsenable,jdbcType=BIT},
+            </if>
+            <if test="exchangeModifiedby != null">
+                #{exchangeModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeModifieddt != null">
+                #{exchangeModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="exchangeCreateby != null">
+                #{exchangeCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeCreatedt != null">
+                #{exchangeCreatedt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.ExchangeConfigDo">
+        update exchange_config
+        <set>
+            <if test="exchangeName != null">
+                exchange_name = #{exchangeName,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeIsenable != null">
+                exchange_isenable=#{exchangeIsenable,jdbcType=BIT},
+            </if>
+            <if test="exchangeModifiedby != null">
+                exchange_modifiedby = #{exchangeModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeModifieddt != null">
+                exchange_modifieddt = #{exchangeModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="exchangeCreateby != null">
+                exchange_createby = #{exchangeCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeCreatedt != null">
+                exchange_createdt = #{exchangeCreatedt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where exchange_id = #{exchangeId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.ExchangeConfigDo">
+    update exchange_config
+    set exchange_name = #{exchangeName,jdbcType=VARCHAR},
+      exchange_isenable=#{exchangeIsenable,jdbcType=BIT},
+      exchange_modifiedby = #{exchangeModifiedby,jdbcType=VARCHAR},
+      exchange_modifieddt = #{exchangeModifieddt,jdbcType=TIMESTAMP}
+    where exchange_id = #{exchangeId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectSelective" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.ExchangeConfigDo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from exchange_config
+        where 1=1
+        <if test="exchangeId != null">
+            and exchange_id=#{exchangeId,jdbcType=VARCHAR}
+        </if>
+        <if test="exchangeName != null">
+            and exchange_name=#{exchangeName,jdbcType=VARCHAR}
+        </if>
+        <if test="exchangeIsenable != null">
+            and exchange_isenable=#{exchangeIsenable,jdbcType=BIT}
+        </if>
+        <if test="exchangeModifiedby != null">
+            and exchange_modifiedby=#{exchangeModifiedby,jdbcType=VARCHAR}
+        </if>
+        <if test="exchangeModifieddt != null">
+            and exchange_modifieddt= #{exchangeModifieddt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="exchangeCreateby != null">
+            and exchange_createby= #{exchangeCreateby,jdbcType=VARCHAR}
+        </if>
+        <if test="exchangeCreatedt != null">
+            and exchange_createdt= #{exchangeCreatedt,jdbcType=TIMESTAMP}
+        </if>
+        order by exchange_createby desc
+    </select>
+
+</mapper>

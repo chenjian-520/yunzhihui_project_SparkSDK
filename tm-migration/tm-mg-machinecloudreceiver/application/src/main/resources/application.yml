@@ -1,0 +1,12 @@
+rabbitmq:
+ host: "rabbitmq1"
+ port: "5672"
+ username: "admin"
+ password: "admin"
+ threadCount: "17"
+
+receiver:
+  queryName: "migrationcloud"
+
+dlservice:
+  persistence: "http://dlap1:8089/api/dlapiservice/v1/"

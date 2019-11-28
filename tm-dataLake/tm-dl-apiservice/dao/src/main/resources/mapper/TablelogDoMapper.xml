@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.treasuremountain.datalake.dlapiservice.dao.mysql.mapper.TablelogDoMapper">
+    <resultMap id="BaseResultMap" type="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.TablelogDo">
+        <id column="tablelog_id" jdbcType="VARCHAR" property="tablelogId"/>
+        <result column="hbtable_id" jdbcType="VARCHAR" property="hbtableId"/>
+        <result column="tablelog_name" jdbcType="VARCHAR" property="tablelogName"/>
+        <result column="tablelog_createtime" jdbcType="TIMESTAMP" property="tablelogCreatetime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    tablelog_id, hbtable_id, tablelog_name, tablelog_createtime
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tablelog
+        where tablelog_id = #{tablelogId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectSelective" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.TablelogDo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tablelog as t1
+        where 1=1
+        <if test="tablelogId != null">
+            and t1.tablelog_id = #{tablelogId,jdbcType=VARCHAR}
+        </if>
+        <if test="hbtableId != null">
+            and t1.hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+        </if>
+        <if test="tablelogName != null">
+            and t1.tablelog_name = #{tablelogName,jdbcType=VARCHAR}
+        </if>
+        <if test="tablelogCreatetime != null">
+            and t1.tablelog_createtime = #{tablelogCreatetime,jdbcType=TIMESTAMP}
+        </if>
+        order  by t1.tablelog_createtime desc
+    </select>
+    <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tablelog order by tablelog_createtime
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tablelog
+    where tablelog_id = #{tablelogId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.TablelogDo">
+    insert into tablelog (tablelog_id, hbtable_id, tablelog_name, 
+      tablelog_createtime)
+    values (#{tablelogId,jdbcType=VARCHAR}, #{hbtableId,jdbcType=VARCHAR}, #{tablelogName,jdbcType=VARCHAR}, 
+      #{tablelogCreatetime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.TablelogDo">
+        insert into tablelog
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tablelogId != null">
+                tablelog_id,
+            </if>
+            <if test="hbtableId != null">
+                hbtable_id,
+            </if>
+            <if test="tablelogName != null">
+                tablelog_name,
+            </if>
+            <if test="tablelogCreatetime != null">
+                tablelog_createtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tablelogId != null">
+                #{tablelogId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableId != null">
+                #{hbtableId,jdbcType=VARCHAR},
+            </if>
+            <if test="tablelogName != null">
+                #{tablelogName,jdbcType=VARCHAR},
+            </if>
+            <if test="tablelogCreatetime != null">
+                #{tablelogCreatetime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.TablelogDo">
+        update tablelog
+        <set>
+            <if test="hbtableId != null">
+                hbtable_id = #{hbtableId,jdbcType=VARCHAR},
+            </if>
+            <if test="tablelogName != null">
+                tablelog_name = #{tablelogName,jdbcType=VARCHAR},
+            </if>
+            <if test="tablelogCreatetime != null">
+                tablelog_createtime = #{tablelogCreatetime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where tablelog_id = #{tablelogId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.TablelogDo">
+    update tablelog
+    set hbtable_id = #{hbtableId,jdbcType=VARCHAR},
+      tablelog_name = #{tablelogName,jdbcType=VARCHAR}
+    where tablelog_id = #{tablelogId,jdbcType=VARCHAR}
+  </update>
+</mapper>

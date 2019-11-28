@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.treasuremountain.datalake.dlapiservice.dao.mysql.mapper.BusinessConfigDoMapper">
+    <resultMap id="BaseResultMap" type="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.BusinessConfigDo">
+        <id column="business_id" jdbcType="VARCHAR" property="businessId"/>
+        <result column="business_name" jdbcType="VARCHAR" property="businessName"/>
+        <result column="business_desc" jdbcType="VARCHAR" property="businessDesc"/>
+        <result column="exchange_id" jdbcType="VARCHAR" property="exchangeId"/>
+        <result column="exchange_name" jdbcType="VARCHAR" property="exchangeName"/>
+        <result column="business_isenable" jdbcType="BIT" property="businessIsenable"/>
+        <result column="business_modifiedby" jdbcType="VARCHAR" property="businessModifiedby"/>
+        <result column="business_modifieddt" jdbcType="TIMESTAMP" property="businessModifieddt"/>
+        <result column="business_createby" jdbcType="VARCHAR" property="businessCreateby"/>
+        <result column="business_createdt" jdbcType="TIMESTAMP" property="businessCreatedt"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    business_id, business_name, business_desc, exchange_id, business_isenable,
+    business_modifiedby, business_modifieddt, business_createby, business_createdt
+  </sql>
+    <sql id="Base_Custom_Column_List">
+    t1.*,t2.exchange_name
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Custom_Column_List"/>
+        from business_config
+        as t1 LEFT JOIN exchange_config as t2 on t2.exchange_id=t1.exchange_id
+        where t1.business_id = #{businessId,jdbcType=VARCHAR}
+        and t1.business_isenable=true
+    </select>
+
+    <select id="selectByPrimaryKeyList"   parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Custom_Column_List"/>
+        from business_config  as t1 LEFT JOIN exchange_config as t2 on t2.exchange_id=t1.exchange_id
+        where t1.business_id in
+        <foreach collection="list"  item="item"  open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and t1.business_isenable=true
+    </select>
+
+    <select id="selectSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.BusinessConfigDo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Custom_Column_List"/>
+        from business_config as t1 LEFT JOIN exchange_config as t2 on t2.exchange_id=t1.exchange_id
+        where 1=1
+        <if test="businessId != null">
+            and t1.business_id = #{businessId,jdbcType=VARCHAR}
+        </if>
+        <if test="businessName != null">
+            and t1.business_name = #{businessName,jdbcType=VARCHAR}
+        </if>
+        <if test="businessDesc != null">
+            and t1.business_desc = #{businessDesc,jdbcType=VARCHAR}
+        </if>
+        <if test="exchangeId != null">
+            and t1.exchange_id = #{exchangeId,jdbcType=VARCHAR}
+        </if>
+        <if test="businessIsenable != null">
+            and t1.business_isenable = #{businessIsenable,jdbcType=BIT}
+        </if>
+        <if test="businessModifiedby != null">
+            and t1.business_modifiedby = #{businessModifiedby,jdbcType=VARCHAR}
+        </if>
+        <if test="businessModifieddt != null">
+            and t1.business_modifieddt = #{businessModifieddt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="businessCreateby != null">
+            and t1.business_createby = #{businessCreateby,jdbcType=VARCHAR}
+        </if>
+        <if test="businessCreatedt != null">
+            and t1.business_createdt = #{businessCreatedt,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+    <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from business_config
+        where business_isenable = TRUE /*and business_id='string'*/
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from business_config
+    where business_id = #{businessId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.BusinessConfigDo">
+    insert into business_config (business_id, business_name, business_desc, 
+      exchange_id, business_isenable,
+      business_modifiedby, business_modifieddt, 
+      business_createby, business_createdt)
+    values (#{businessId,jdbcType=VARCHAR}, #{businessName,jdbcType=VARCHAR}, #{businessDesc,jdbcType=VARCHAR}, 
+      #{exchangeId,jdbcType=VARCHAR}, #{businessIsenable,jdbcType=BIT},
+      #{businessModifiedby,jdbcType=VARCHAR}, #{businessModifieddt,jdbcType=TIMESTAMP}, 
+      #{businessCreateby,jdbcType=VARCHAR}, #{businessCreatedt,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.BusinessConfigDo">
+        insert into business_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="businessId != null">
+                business_id,
+            </if>
+            <if test="businessName != null">
+                business_name,
+            </if>
+            <if test="businessDesc != null">
+                business_desc,
+            </if>
+            <if test="exchangeId != null">
+                exchange_id,
+            </if>
+            <if test="businessIsenable != null">
+                business_isenable,
+            </if>
+            <if test="businessModifiedby != null">
+                business_modifiedby,
+            </if>
+            <if test="businessModifieddt != null">
+                business_modifieddt,
+            </if>
+            <if test="businessCreateby != null">
+                business_createby,
+            </if>
+            <if test="businessCreatedt != null">
+                business_createdt,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="businessId != null">
+                #{businessId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessName != null">
+                #{businessName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessDesc != null">
+                #{businessDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeId != null">
+                #{exchangeId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessIsenable != null">
+                #{businessIsenable,jdbcType=BIT},
+            </if>
+            <if test="businessModifiedby != null">
+                #{businessModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="businessModifieddt != null">
+                #{businessModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="businessCreateby != null">
+                #{businessCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="businessCreatedt != null">
+                #{businessCreatedt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.BusinessConfigDo">
+        update business_config
+        <set>
+            <if test="businessName != null">
+                business_name = #{businessName,jdbcType=VARCHAR},
+            </if>
+            <if test="businessDesc != null">
+                business_desc = #{businessDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeId != null">
+                exchange_id = #{exchangeId,jdbcType=VARCHAR},
+            </if>
+            <if test="businessIsenable != null">
+                business_isenable = #{businessIsenable,jdbcType=BIT},
+            </if>
+            <if test="businessModifiedby != null">
+                business_modifiedby = #{businessModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="businessModifieddt != null">
+                business_modifieddt = #{businessModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="businessCreateby != null">
+                business_createby = #{businessCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="businessCreatedt != null">
+                business_createdt = #{businessCreatedt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where business_id = #{businessId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.BusinessConfigDo">
+    update business_config
+    set business_name = #{businessName,jdbcType=VARCHAR},
+      business_desc = #{businessDesc,jdbcType=VARCHAR},
+      exchange_id = #{exchangeId,jdbcType=VARCHAR},
+      business_isenable = #{businessIsenable,jdbcType=BIT},
+      business_modifiedby = #{businessModifiedby,jdbcType=VARCHAR},
+      business_modifieddt = #{businessModifieddt,jdbcType=TIMESTAMP}
+    where business_id = #{businessId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option java_package = "com.treasuremountain.datalake.dlapiservice.service.grpc";
+option java_multiple_files = true;
+option java_outer_classname = "hiveGrpc";
+
+
+message hiveSearchRequest {
+
+    string sql = 1;
+    string extJsonString = 2;
+}
+
+message hiveSearchResponse{
+
+    string dataJson = 1;
+    bool isError = 2;
+    string errorMessage = 3;
+}
+
+service hiveSearchGreeter {
+    rpc hiveSearch(hiveSearchRequest) returns(stream hiveSearchResponse){};
+}

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.treasuremountain.machinecloudreceiver.dao.mapper.DatarelationConfigDoMapper">
+  <resultMap id="BaseResultMap" type="com.treasuremountain.machinecloudreceiver.dao.model.DatarelationConfigDo">
+    <id column="datarelation_id" jdbcType="VARCHAR" property="datarelationId" />
+    <result column="datarelation_key" jdbcType="VARCHAR" property="datarelationKey" />
+    <result column="business_id" jdbcType="VARCHAR" property="businessId" />
+    <result column="datarelation_isenable" jdbcType="BIT" property="datarelationIsenable" />
+    <result column="datarelation_modifiedby" jdbcType="VARCHAR" property="datarelationModifiedby" />
+    <result column="datarelation_modifieddt" jdbcType="TIMESTAMP" property="datarelationModifieddt" />
+    <result column="datarelation_createby" jdbcType="VARCHAR" property="datarelationCreateby" />
+    <result column="datarelation_createdt" jdbcType="TIMESTAMP" property="datarelationCreatedt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    datarelation_id, datarelation_key, business_id, datarelation_isenable, datarelation_modifiedby, 
+    datarelation_modifieddt, datarelation_createby, datarelation_createdt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from datarelation_config
+    where datarelation_id = #{datarelationId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from datarelation_config
+    where datarelation_isenable = true
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from datarelation_config
+    where datarelation_id = #{datarelationId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.treasuremountain.machinecloudreceiver.dao.model.DatarelationConfigDo">
+    insert into datarelation_config (datarelation_id, datarelation_key, 
+      business_id, datarelation_isenable, datarelation_modifiedby, 
+      datarelation_modifieddt, datarelation_createby, 
+      datarelation_createdt)
+    values (#{datarelationId,jdbcType=VARCHAR}, #{datarelationKey,jdbcType=VARCHAR}, 
+      #{businessId,jdbcType=VARCHAR}, #{datarelationIsenable,jdbcType=BIT}, #{datarelationModifiedby,jdbcType=VARCHAR}, 
+      #{datarelationModifieddt,jdbcType=TIMESTAMP}, #{datarelationCreateby,jdbcType=VARCHAR}, 
+      #{datarelationCreatedt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.treasuremountain.machinecloudreceiver.dao.model.DatarelationConfigDo">
+    insert into datarelation_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="datarelationId != null">
+        datarelation_id,
+      </if>
+      <if test="datarelationKey != null">
+        datarelation_key,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="datarelationIsenable != null">
+        datarelation_isenable,
+      </if>
+      <if test="datarelationModifiedby != null">
+        datarelation_modifiedby,
+      </if>
+      <if test="datarelationModifieddt != null">
+        datarelation_modifieddt,
+      </if>
+      <if test="datarelationCreateby != null">
+        datarelation_createby,
+      </if>
+      <if test="datarelationCreatedt != null">
+        datarelation_createdt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="datarelationId != null">
+        #{datarelationId,jdbcType=VARCHAR},
+      </if>
+      <if test="datarelationKey != null">
+        #{datarelationKey,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="datarelationIsenable != null">
+        #{datarelationIsenable,jdbcType=BIT},
+      </if>
+      <if test="datarelationModifiedby != null">
+        #{datarelationModifiedby,jdbcType=VARCHAR},
+      </if>
+      <if test="datarelationModifieddt != null">
+        #{datarelationModifieddt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datarelationCreateby != null">
+        #{datarelationCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="datarelationCreatedt != null">
+        #{datarelationCreatedt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.treasuremountain.machinecloudreceiver.dao.model.DatarelationConfigDo">
+    update datarelation_config
+    <set>
+      <if test="datarelationKey != null">
+        datarelation_key = #{datarelationKey,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="datarelationIsenable != null">
+        datarelation_isenable = #{datarelationIsenable,jdbcType=BIT},
+      </if>
+      <if test="datarelationModifiedby != null">
+        datarelation_modifiedby = #{datarelationModifiedby,jdbcType=VARCHAR},
+      </if>
+      <if test="datarelationModifieddt != null">
+        datarelation_modifieddt = #{datarelationModifieddt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="datarelationCreateby != null">
+        datarelation_createby = #{datarelationCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="datarelationCreatedt != null">
+        datarelation_createdt = #{datarelationCreatedt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where datarelation_id = #{datarelationId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.treasuremountain.machinecloudreceiver.dao.model.DatarelationConfigDo">
+    update datarelation_config
+    set datarelation_key = #{datarelationKey,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=VARCHAR},
+      datarelation_isenable = #{datarelationIsenable,jdbcType=BIT},
+      datarelation_modifiedby = #{datarelationModifiedby,jdbcType=VARCHAR},
+      datarelation_modifieddt = #{datarelationModifieddt,jdbcType=TIMESTAMP},
+      datarelation_createby = #{datarelationCreateby,jdbcType=VARCHAR},
+      datarelation_createdt = #{datarelationCreatedt,jdbcType=TIMESTAMP}
+    where datarelation_id = #{datarelationId,jdbcType=VARCHAR}
+  </update>
+</mapper>

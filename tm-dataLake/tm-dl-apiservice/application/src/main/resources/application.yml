@@ -1,0 +1,59 @@
+server:
+  port: "8089"
+
+spring:
+  http:
+    multipart:
+      max-file-size: 10MB  # 指单个文件的大小
+      max-request-size: 100MB  # 上传文件的总大小
+
+grpc:
+  server:
+    port: 8100
+    inProcessName: hiveSearch
+
+hive:
+  url: master02:10000
+  db: default
+  uname:
+  password:
+
+hbase:
+  zookeeperQuorum: "zkQuorum1,zkQuorum2,zkQuorum3"
+  zookeeperClientPort: "2181"
+
+hbasebackup:
+  zookeeperQuorum: "zkBackupQuorum1"
+  zookeeperClientPort: "2181"
+
+rabbitmq:
+  host: "rabbitmq1"
+  port: "5672"
+  username: "admin"
+  password: "admin"
+
+hbaseMasterQuery:
+  queryName: "hbaseMaser"
+  isBackup: "false"
+
+hbaseSlave1Query:
+  queryName: "hbaseSlave1"
+  taskNo: "0"
+
+hbaseSlave2Query:
+  queryName: "hbaseSlave2"
+  taskNo: "1"
+
+elasticsearch:
+  uri: "http://es1:9200,http://es2:9200,http://es3:9200"
+
+hdfs:
+  uri: "hdfs://hdfsMaster:8020"
+  uriback1: "namenode1"
+  uriback2: "namenode2"
+
+sysConf:
+  searchThreadCount: 1
+
+kafka:
+  prodThreadcount: 3

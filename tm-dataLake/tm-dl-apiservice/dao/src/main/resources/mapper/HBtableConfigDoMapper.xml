@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.treasuremountain.datalake.dlapiservice.dao.mysql.mapper.HBtableConfigDoMapper">
+    <resultMap id="BaseResultMap" type="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBtableConfigDo">
+        <id column="hbtable_id" jdbcType="VARCHAR" property="hbtableId"/>
+        <result column="hbtable_name" jdbcType="VARCHAR" property="hbtableName"/>
+        <result column="hbtable_iscompression" jdbcType="BIT" property="hbtableIscompression"/>
+        <result column="hbtable_compressionname" jdbcType="VARCHAR" property="hbtableCompressionname"/>
+        <result column="hbtable_issplit" jdbcType="BIT" property="hbtableIssplit"/>
+        <result column="hbtable_splitinfo" jdbcType="VARCHAR" property="hbtableSplitinfo"/>
+        <result column="hbtable_desc" jdbcType="VARCHAR" property="hbtableDesc"/>
+        <result column="hbtable_istablesegment" jdbcType="BIT" property="hbtableIstablesegment"/>
+        <result column="hbtable_tablesegmenttime" jdbcType="INTEGER" property="hbtablesegmenttime"/>
+        <result column="hbtable_tableretentiontime" jdbcType="INTEGER" property="hbtableretentiontime"/>
+        <result column="hbtable_currenttablename" jdbcType="VARCHAR" property="hbcurrenttablename"/>
+        <result column="hbtable_istwoLevelIndex" jdbcType="BIT" property="hbtableIstwoLevelIndex"/>
+        <result column="hbtable_indexsegmenttime" jdbcType="INTEGER" property="hbindexsegmenttime"/>
+        <result column="hbtable_indexretentiontime" jdbcType="INTEGER" property="hbindexretentiontime"/>
+        <result column="hbtable_currentindexname" jdbcType="VARCHAR" property="hbcurrentindexname"/>
+        <result column="hbtable_isenable" jdbcType="BIT" property="hbtableIsenable"/>
+        <result column="init_result" jdbcType="BIT" property="initResult"/>
+        <result column="hbtable_modifiedby" jdbcType="VARCHAR" property="hbtableModifiedby"/>
+        <result column="hbtable_modifieddt" jdbcType="TIMESTAMP" property="hbtableModifieddt"/>
+        <result column="hbtable_createby" jdbcType="VARCHAR" property="hbtableCreateby"/>
+        <result column="hbtable_createdt" jdbcType="TIMESTAMP" property="hbtableCreatedt"/>
+    </resultMap>
+    <resultMap id="TableAllResultMap"
+               type="com.treasuremountain.datalake.dlapiservice.common.data.htable.HBtableConfigDto">
+        <id column="hbtable_id" jdbcType="VARCHAR" property="hbtableId"/>
+        <result column="hbtable_name" jdbcType="VARCHAR" property="hbtableName"/>
+        <result column="hbtable_iscompression" jdbcType="BIT" property="hbtableIscompression"/>
+        <result column="hbtable_compressionname" jdbcType="VARCHAR" property="hbtableCompressionname"/>
+        <result column="hbtable_issplit" jdbcType="BIT" property="hbtableIssplit"/>
+        <result column="hbtable_splitinfo" jdbcType="VARCHAR" property="hbtableSplitinfo"/>
+        <result column="hbtable_desc" jdbcType="VARCHAR" property="hbtableDesc"/>
+        <result column="hbtable_istablesegment" jdbcType="BIT" property="hbtableIstablesegment"/>
+        <result column="hbtable_tablesegmenttime" jdbcType="INTEGER" property="hbtablesegmenttime"/>
+        <result column="hbtable_tableretentiontime" jdbcType="INTEGER" property="hbtableretentiontime"/>
+        <result column="hbtable_currenttablename" jdbcType="VARCHAR" property="hbcurrenttablename"/>
+        <result column="hbtable_istwoLevelIndex" jdbcType="BIT" property="hbtableIstwoLevelIndex"/>
+        <result column="hbtable_indexsegmenttime" jdbcType="INTEGER" property="hbindexsegmenttime"/>
+        <result column="hbtable_indexretentiontime" jdbcType="INTEGER" property="hbindexretentiontime"/>
+        <result column="hbtable_currentindexname" jdbcType="VARCHAR" property="hbcurrentindexname"/>
+        <result column="hbtable_isenable" jdbcType="BIT" property="hbtableIsenable"/>
+        <result column="init_result" jdbcType="BIT" property="initResult"/>
+        <result column="hbtable_modifiedby" jdbcType="VARCHAR" property="hbtableModifiedby"/>
+        <result column="hbtable_modifieddt" jdbcType="TIMESTAMP" property="hbtableModifieddt"/>
+        <result column="hbtable_createby" jdbcType="VARCHAR" property="hbtableCreateby"/>
+        <result column="hbtable_createdt" jdbcType="TIMESTAMP" property="hbtableCreatedt"/>
+        <collection property="columnfamilyConfigDtos" column="hbtable_id" javaType="java.util.ArrayList"
+                    ofType="java.lang.String" select="selectFamilyAllInfoByPrimaryKey"></collection>
+        <collection property="indexlogDtos" column="hbtable_id" javaType="java.util.ArrayList"
+                    ofType="java.lang.String" select="selectIndexlogByPrimaryKey"></collection>
+    </resultMap>
+
+    <resultMap id="BaseFamiliDtoResultMap"
+               type="com.treasuremountain.datalake.dlapiservice.common.data.htable.HBcolumnfamilyConfigDto">
+        <id column="hbcolumnfamily_id" jdbcType="VARCHAR" property="hbcolumnfamilyId"/>
+        <result column="hbtable_id" jdbcType="VARCHAR" property="hbtableId"/>
+        <result column="hbcolumnfamily_name" jdbcType="VARCHAR" property="hbcolumnfamilyName"/>
+        <result column="hbcolumnfamily_isenable" jdbcType="BIT" property="hbcolumnfamilyIsenable"/>
+        <result column="hbcolumnfamily_modifiedby" jdbcType="VARCHAR" property="hbcolumnfamilyModifiedby"/>
+        <result column="hbcolumnfamily_modifieddt" jdbcType="TIMESTAMP" property="hbcolumnfamilyModifieddt"/>
+        <result column="hbcolumnfamily_createby" jdbcType="VARCHAR" property="hbcolumnfamilyCreateby"/>
+        <result column="hbcolumnfamily_createdt" jdbcType="TIMESTAMP" property="hbcolumnfamilyCreatedt"/>
+        <collection property="columnConfigDtos" column="hbcolumnfamily_id" javaType="java.util.ArrayList"
+                    ofType="java.lang.String" select="SelectColumnByPrimaryKey"></collection>
+    </resultMap>
+
+    <resultMap id="BaseIdexlogResultMap"
+               type="com.treasuremountain.datalake.dlapiservice.common.data.twolevelindex.IndexlogDto">
+        <id column="indexlog_id" jdbcType="VARCHAR" property="indexlogId"/>
+        <result column="hbtable_id" jdbcType="VARCHAR" property="hbtableId"/>
+        <result column="indexlog_name" jdbcType="VARCHAR" property="indexlogName"/>
+        <result column="indexlog_createtime" jdbcType="TIMESTAMP" property="indexlogCreatetime"/>
+    </resultMap>
+
+    <resultMap id="BaseCoulumnResultMap"
+               type="com.treasuremountain.datalake.dlapiservice.common.data.htable.HBcolumnConfigDto">
+        <id column="hbcolumn_id" jdbcType="VARCHAR" property="hbcolumnId"/>
+        <result column="hbcolumnfamily_id" jdbcType="VARCHAR" property="hbcolumnfamilyId"/>
+        <result column="hbcolumn_name" jdbcType="VARCHAR" property="hbcolumnName"/>
+        <result column="hbcolumn_isenable" jdbcType="BIT" property="hbcolumnIsenable"/>
+        <result column="hbcolumn_isindex" jdbcType="BIT" property="hbcolumnIsindex"/>
+        <result column="hbcolumn_desc" jdbcType="VARCHAR" property="hbcolumnDesc"/>
+        <result column="hbcolumn_modifiedby" jdbcType="VARCHAR" property="hbcolumnModifiedby"/>
+        <result column="hbcolumn_modifieddt" jdbcType="TIMESTAMP" property="hbcolumnModifieddt"/>
+        <result column="hbcolumn_createby" jdbcType="VARCHAR" property="hbcolumnCreateby"/>
+        <result column="hbcolumn_createdt" jdbcType="TIMESTAMP" property="hbcolumnCreatedt"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+      hbtable_id,
+      hbtable_name,
+      hbtable_iscompression,
+      hbtable_compressionname,
+      hbtable_issplit,
+      hbtable_splitinfo,
+      hbtable_desc,
+      hbtable_istablesegment,
+      hbtable_tablesegmenttime,
+      hbtable_tableretentiontime,
+      hbtable_currenttablename,
+      hbtable_istwoLevelIndex,
+      hbtable_indexsegmenttime,
+      hbtable_indexretentiontime,
+      hbtable_currentindexname,
+      hbtable_isenable,
+      init_result,
+      hbtable_modifiedby,
+      hbtable_modifieddt,
+      hbtable_createby,
+      hbtable_createdt
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbtable_config
+        where hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+        and hbtable_isenable=true
+    </select>
+    <select id="selectByRealTableName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbtable_config
+        where hbtable_currenttablename = #{tablename,jdbcType=VARCHAR}
+        and hbtable_isenable=true
+    </select>
+    <select id="selectAllInfoByPrimaryKey" parameterType="java.lang.String" resultMap="TableAllResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbtable_config
+        where hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+        and hbtable_isenable=true
+    </select>
+    <select id="selectFamilyAllInfoByPrimaryKey" parameterType="java.lang.String" resultMap="BaseFamiliDtoResultMap">
+        SELECT hbcolumnfamily_id, hbtable_id, hbcolumnfamily_name, hbcolumnfamily_isenable, hbcolumnfamily_modifiedby,
+         hbcolumnfamily_modifieddt, hbcolumnfamily_createby, hbcolumnfamily_createdt
+
+        FROM hbcolumnfamily_config
+
+        where hbtable_id = #{hbtable_id,jdbcType=VARCHAR} and hbcolumnfamily_isenable=true
+    </select>
+
+    <select id="SelectColumnByPrimaryKey" parameterType="java.lang.String" resultMap="BaseCoulumnResultMap">
+        SELECT hbcolumn_id, hbcolumnfamily_id, hbcolumn_name, hbcolumn_isenable, hbcolumn_isindex, hbcolumn_desc, hbcolumn_modifiedby, hbcolumn_modifieddt, hbcolumn_createby, hbcolumn_createdt
+        FROM hbcolumn_config
+        where hbcolumnfamily_id = #{hbcolumnfamily_id,jdbcType=VARCHAR} and hbcolumn_isenable=true
+    </select>
+
+    <select id="selectIndexlogByPrimaryKey" parameterType="java.lang.String" resultMap="BaseIdexlogResultMap">
+        SELECT indexlog_id, hbtable_id, indexlog_name, indexlog_createtime
+        FROM indexlog where  hbtable_id = #{hbtable_id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbtable_config where hbtable_isenable=true
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from hbtable_config
+        where hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBtableConfigDo">
+    insert into hbtable_config (
+      hbtable_id,
+      hbtable_name,
+      hbtable_iscompression,
+      hbtable_compressionname,
+      hbtable_issplit,
+      hbtable_splitinfo,
+      hbtable_desc,
+      hbtable_istablesegment,
+      hbtable_tablesegmenttime,
+      hbtable_tableretentiontime,
+      hbtable_currenttablename,
+      hbtable_istwoLevelIndex,
+      hbtable_indexsegmenttime,
+      hbtable_indexretentiontime,
+      hbtable_currentindexname,
+      hbtable_isenable,
+      init_result,
+      hbtable_modifiedby,
+      hbtable_modifieddt,
+      hbtable_createby,
+      hbtable_createdt)
+    values (
+      #{hbtableId,jdbcType=VARCHAR},
+      #{hbtableName,jdbcType=VARCHAR},
+      #{hbtableIscompression,jdbcType=BIT},
+      #{hbtableCompressionname,jdbcType=VARCHAR},
+      #{hbtableIssplit,jdbcType=BIT},
+      #{hbtableSplitinfo,jdbcType=VARCHAR},
+      #{hbtableDesc,jdbcType=VARCHAR},
+      #{hbtableIstablesegment,jdbcType=BIT},
+      #{hbtablesegmenttime,jdbcType=INTEGER},
+      #{hbtableretentiontime,jdbcType=INTEGER},
+      #{hbcurrenttablename,jdbcType=VARCHAR},
+      #{hbtableIstwoLevelIndex,jdbcType=BIT},
+      #{hbindexsegmenttime,jdbcType=INTEGER},
+      #{hbindexretentiontime,jdbcType=INTEGER},
+      #{hbcurrentindexname,jdbcType=VARCHAR},
+      #{hbtableIsenable,jdbcType=BIT},
+      #{initResult,jdbcType=BIT},
+      #{hbtableModifiedby,jdbcType=VARCHAR},
+      #{hbtableModifieddt,jdbcType=TIMESTAMP},
+      #{hbtableCreateby,jdbcType=VARCHAR},
+      #{hbtableCreatedt,jdbcType=TIMESTAMP})
+  </insert>
+    <select id="selectSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBtableConfigDo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbtable_config as t1
+        where 1=1
+        <if test="hbtableId != null">
+            and t1.hbtable_id=#{hbtableId,jdbcType=VARCHAR}
+        </if>
+        <if test="hbtableName != null">
+            and t1.hbtable_name= #{hbtableName,jdbcType=VARCHAR}
+        </if>
+        <if test="hbtableIscompression != null">
+            and t1.hbtable_iscompression= #{hbtableIscompression,jdbcType=BIT}
+        </if>
+        <if test="hbtableCompressionname != null">
+            and t1.hbtable_compressionname= #{hbtableCompressionname,jdbcType=VARCHAR}
+        </if>
+        <if test="hbtableIssplit != null">
+            and t1.hbtable_issplit= #{hbtableIssplit,jdbcType=BIT}
+        </if>
+        <if test="hbtableSplitinfo != null">
+            and t1.hbtable_splitinfo= #{hbtableSplitinfo,jdbcType=VARCHAR}
+        </if>
+        <if test="hbtableDesc != null">
+            and t1.hbtable_desc= #{hbtableDesc,jdbcType=VARCHAR}
+        </if>
+        <!--<if test="hbtableIstablesegment != null">
+            and t1.hbtable_istablesegment= #{hbtableIstablesegment,jdbcType=BIT}
+        </if>
+         <if test="hbtablesegmenttime != null">
+             and t1.hbtable_tablesegmenttime= #{hbtablesegmenttime,jdbcType=INTEGER}
+         </if>
+         <if test="hbtableretentiontime != null">
+             and t1.hbtable_tableretentiontime= #{hbtableretentiontime,jdbcType=INTEGER}
+         </if>-->
+        <if test="hbcurrenttablename != null">
+            and t1.hbtable_currenttablename=#{hbcurrenttablename,jdbcType=VARCHAR}
+        </if>
+        <!--<if test="hbtableIstwoLevelIndex != null">
+            and t1.hbtable_istwoLevelIndex= #{hbtableIstwoLevelIndex,jdbcType=BIT}
+        </if>
+        <if test="hbindexsegmenttime != null">
+            and t1.hbtable_indexsegmenttime= #{hbindexsegmenttime,jdbcType=INTEGER}
+        </if>
+        <if test="hbindexretentiontime != null">
+            and t1.hbtable_indexretentiontime= #{hbindexretentiontime,jdbcType=INTEGER}
+        </if>-->
+        <if test="hbcurrentindexname != null">
+            and t1.hbtable_currentindexname= #{hbcurrentindexname,jdbcType=VARCHAR}
+        </if>
+        <if test="hbtableIsenable != null">
+            and t1.hbtable_isenable= #{hbtableIsenable,jdbcType=BIT}
+        </if>
+        <if test="initResult != null">
+            and t1.init_result=#{initResult,jdbcType=BIT}
+        </if>
+        <if test="hbtableModifiedby != null">
+            and t1.hbtable_modifiedby= #{hbtableModifiedby,jdbcType=VARCHAR}
+        </if>
+        <if test="hbtableModifieddt != null">
+            and t1.hbtable_modifieddt= #{hbtableModifieddt,jdbcType=TIMESTAMP}
+        </if>
+        <if test="hbtableCreateby != null">
+            and t1.hbtable_createby=#{hbtableCreateby,jdbcType=VARCHAR}
+        </if>
+        <if test="hbtableCreatedt != null">
+            and t1.hbtable_createdt=#{hbtableCreatedt,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+    <select id="selectByPrimaryKeyList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from hbtable_config as t1
+        where t1.hbtable_id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and t1.hbtable_isenable=true
+    </select>
+
+    <select id="selectByPrimaryKeyIsindex" parameterType="java.lang.String" resultType="Integer">
+          select count(*) from hbcolumn_config as t2 where t2.hbcolumnfamily_id
+          in( SELECT t1.hbcolumnfamily_id from  hbcolumnfamily_config as t1
+          where t1.hbtable_id=#{hbtableId,jdbcType=VARCHAR} and t1.hbcolumnfamily_isenable=TRUE )
+          and t2.hbcolumn_isenable=TRUE and t2.hbcolumn_isindex=TRUE
+    </select>
+
+    <insert id="insertSelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBtableConfigDo">
+        insert into hbtable_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hbtableId != null">
+                hbtable_id,
+            </if>
+            <if test="hbtableName != null">
+                hbtable_name,
+            </if>
+            <if test="hbtableIscompression != null">
+                hbtable_iscompression,
+            </if>
+            <if test="hbtableCompressionname != null">
+                hbtable_compressionname,
+            </if>
+            <if test="hbtableIssplit != null">
+                hbtable_issplit,
+            </if>
+            <if test="hbtableSplitinfo != null">
+                hbtable_splitinfo,
+            </if>
+            <if test="hbtableDesc != null">
+                hbtable_desc,
+            </if>
+            <if test="hbtableIstablesegment != null">
+                hbtable_istablesegment,
+            </if>
+            <if test="hbtablesegmenttime != null">
+                hbtable_tablesegmenttime,
+            </if>
+            <if test="hbtableretentiontime != null">
+                hbtable_tableretentiontime,
+            </if>
+            <if test="hbcurrenttablename != null">
+                hbtable_currenttablename,
+            </if>
+            <if test="hbtableIstwoLevelIndex != null">
+                hbtable_istwoLevelIndex,
+            </if>
+            <if test="hbindexsegmenttime != null">
+                hbtable_indexsegmenttime,
+            </if>
+            <if test="hbindexretentiontime != null">
+                hbtable_indexretentiontime,
+            </if>
+            <if test="hbcurrentindexname != null">
+                hbtable_currentindexname,
+            </if>
+            <if test="hbtableIsenable != null">
+                hbtable_isenable,
+            </if>
+            <if test="initResult != null">
+                init_result,
+            </if>
+            <if test="hbtableModifiedby != null">
+                hbtable_modifiedby,
+            </if>
+            <if test="hbtableModifieddt != null">
+                hbtable_modifieddt,
+            </if>
+            <if test="hbtableCreateby != null">
+                hbtable_createby,
+            </if>
+            <if test="hbtableCreatedt != null">
+                hbtable_createdt,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hbtableId != null">
+                #{hbtableId,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableName != null">
+                #{hbtableName,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableIscompression != null">
+                #{hbtableIscompression,jdbcType=BIT},
+            </if>
+            <if test="hbtableCompressionname != null">
+                #{hbtableCompressionname,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableIssplit != null">
+                #{hbtableIssplit,jdbcType=BIT},
+            </if>
+            <if test="hbtableSplitinfo != null">
+                #{hbtableSplitinfo,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableDesc != null">
+                #{hbtableDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableIstablesegment != null">
+                #{hbtableIstablesegment,jdbcType=BIT},
+            </if>
+            <if test="hbtablesegmenttime != null">
+                #{hbtablesegmenttime,jdbcType=INTEGER},
+            </if>
+            <if test="hbtableretentiontime != null">
+                #{hbtableretentiontime,jdbcType=INTEGER},
+            </if>
+            <if test="hbcurrenttablename != null">
+                #{hbcurrenttablename,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableIstwoLevelIndex != null">
+                #{hbtableIstwoLevelIndex,jdbcType=BIT},
+            </if>
+            <if test="hbindexsegmenttime != null">
+                #{hbindexsegmenttime,jdbcType=INTEGER},
+            </if>
+            <if test="hbindexretentiontime != null">
+                #{hbindexretentiontime,jdbcType=INTEGER},
+            </if>
+            <if test="hbcurrentindexname != null">
+                #{hbcurrentindexname,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableIsenable != null">
+                #{hbtableIsenable,jdbcType=BIT},
+            </if>
+            <if test="initResult != null">
+                #{initResult,jdbcType=BIT},
+            </if>
+            <if test="hbtableModifiedby != null">
+                #{hbtableModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableModifieddt != null">
+                #{hbtableModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hbtableCreateby != null">
+                #{hbtableCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableCreatedt != null">
+                #{hbtableCreatedt,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBtableConfigDo">
+        update hbtable_config
+        <set>
+            <if test="hbtableName != null">
+                hbtable_name= #{hbtableName,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableIscompression != null">
+                hbtable_iscompression= #{hbtableIscompression,jdbcType=BIT},
+            </if>
+            <if test="hbtableCompressionname != null">
+                hbtable_compressionname= #{hbtableCompressionname,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableIssplit != null">
+                hbtable_issplit= #{hbtableIssplit,jdbcType=BIT},
+            </if>
+            <if test="hbtableSplitinfo != null">
+                hbtable_splitinfo= #{hbtableSplitinfo,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableDesc != null">
+                hbtable_desc= #{hbtableDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableIstablesegment != null">
+                hbtable_istablesegment= #{hbtableIstablesegment,jdbcType=BIT},
+            </if>
+            <if test="hbtablesegmenttime != null and hbtablesegmenttime >0 ">
+                hbtable_tablesegmenttime= #{hbtablesegmenttime,jdbcType=INTEGER},
+            </if>
+            <if test="hbtableretentiontime != null and hbtableretentiontime >0 ">
+                hbtable_tableretentiontime= #{hbtableretentiontime,jdbcType=INTEGER},
+            </if>
+            <if test="hbcurrenttablename != null">
+                hbtable_currenttablename=#{hbcurrenttablename,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableIstwoLevelIndex != null">
+                hbtable_istwoLevelIndex= #{hbtableIstwoLevelIndex,jdbcType=BIT},
+            </if>
+            <if test="hbindexsegmenttime != null and hbindexsegmenttime >0 ">
+                hbtable_indexsegmenttime= #{hbindexsegmenttime,jdbcType=INTEGER},
+            </if>
+            <if test="hbindexretentiontime != null and hbindexretentiontime >0 ">
+                hbtable_indexretentiontime= #{hbindexretentiontime,jdbcType=INTEGER},
+            </if>
+            <if test="hbcurrentindexname != null">
+                hbtable_currentindexname= #{hbcurrentindexname,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableIsenable != null">
+                hbtable_isenable= #{hbtableIsenable,jdbcType=BIT},
+            </if>
+            <if test="initResult != null">
+                init_result=#{initResult,jdbcType=BIT},
+            </if>
+            <if test="hbtableModifiedby != null">
+                hbtable_modifiedby= #{hbtableModifiedby,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableModifieddt != null">
+                hbtable_modifieddt= #{hbtableModifieddt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="hbtableCreateby != null">
+                hbtable_createby=#{hbtableCreateby,jdbcType=VARCHAR},
+            </if>
+            <if test="hbtableCreatedt != null">
+                hbtable_createdt=#{hbtableCreatedt,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBtableConfigDo">
+    update hbtable_config
+    set hbtable_name = #{hbtableName,jdbcType=VARCHAR},
+      hbtable_iscompression = #{hbtableIscompression,jdbcType=BIT},
+      hbtable_compressionname = #{hbtableCompressionname,jdbcType=VARCHAR},
+      hbtable_issplit = #{hbtableIssplit,jdbcType=BIT},
+      hbtable_splitinfo = #{hbtableSplitinfo,jdbcType=VARCHAR},
+      hbtable_desc = #{hbtableDesc,jdbcType=VARCHAR},
+      hbtable_modifiedby = #{hbtableModifiedby,jdbcType=VARCHAR},
+      hbtable_modifieddt = #{hbtableModifieddt,jdbcType=TIMESTAMP}
+    where hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+  </update>
+    <update id="updateByPrimaryKeyDelete"
+            parameterType="com.treasuremountain.datalake.dlapiservice.dao.mysql.model.HBtableConfigDo">
+        update hbtable_config
+        <set>
+            <if test="hbtableIsenable != null">
+                hbtable_isenable= #{hbtableIsenable,jdbcType=BIT},
+            </if>
+        </set>
+        where hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateInittag">
+        update hbtable_config
+        set init_result =true
+        where hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateCurrentIndexByHtid">
+        update hbtable_config
+        set hbtable_currentindexname= #{indexname,jdbcType=VARCHAR}
+        where hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateCurrentTableNameByHtid">
+        update hbtable_config
+        set hbtable_currenttablename= #{tname,jdbcType=VARCHAR}
+        where hbtable_id = #{hbtableId,jdbcType=VARCHAR}
+    </update>
+
+
+</mapper>

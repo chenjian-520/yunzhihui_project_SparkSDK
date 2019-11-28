@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xxl.job.admin.dao.ThirdpartyClassDao">
+  <resultMap id="BaseResultMap" type="com.xxl.job.admin.core.model.ThirdpartyClassDo">
+    <id column="thirdpartyclass_config_id" jdbcType="VARCHAR" property="thirdpartyclassConfigId" />
+    <result column="thirdpartyclass_name" jdbcType="VARCHAR" property="thirdpartyclassName" />
+    <result column="thirdpartyclass_classpah" jdbcType="VARCHAR" property="thirdpartyclassClasspah" />
+    <result column="thirdpartyclass_isenabled" jdbcType="BIT" property="thirdpartyclassIsenabled" />
+    <result column="thirdpartyclass_createby" jdbcType="VARCHAR" property="thirdpartyclassCreateby" />
+    <result column="thirdpartyclass_createdt" jdbcType="TIMESTAMP" property="thirdpartyclassCreatedt" />
+    <result column="thirdpartyclass_modifiedby" jdbcType="VARCHAR" property="thirdpartyclassModifiedby" />
+    <result column="thirdpartyclass_modifieddt" jdbcType="TIMESTAMP" property="thirdpartyclassModifieddt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    thirdpartyclass_config_id, thirdpartyclass_name, thirdpartyclass_classpah, thirdpartyclass_isenabled, 
+    thirdpartyclass_createby, thirdpartyclass_createdt, thirdpartyclass_modifiedby, thirdpartyclass_modifieddt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from thirdpartyclass_config
+    where thirdpartyclass_config_id = #{thirdpartyclassConfigId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from thirdpartyclass_config
+    where thirdpartyclass_isenabled = true
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from thirdpartyclass_config
+    where thirdpartyclass_config_id = #{thirdpartyclassConfigId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.xxl.job.admin.core.model.ThirdpartyClassDo">
+    insert into thirdpartyclass_config (thirdpartyclass_config_id, thirdpartyclass_name, 
+      thirdpartyclass_classpah, thirdpartyclass_isenabled, 
+      thirdpartyclass_createby, thirdpartyclass_createdt, 
+      thirdpartyclass_modifiedby, thirdpartyclass_modifieddt
+      )
+    values (#{thirdpartyclassConfigId,jdbcType=VARCHAR}, #{thirdpartyclassName,jdbcType=VARCHAR}, 
+      #{thirdpartyclassClasspah,jdbcType=VARCHAR}, #{thirdpartyclassIsenabled,jdbcType=BIT}, 
+      #{thirdpartyclassCreateby,jdbcType=VARCHAR}, #{thirdpartyclassCreatedt,jdbcType=TIMESTAMP}, 
+      #{thirdpartyclassModifiedby,jdbcType=VARCHAR}, #{thirdpartyclassModifieddt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xxl.job.admin.core.model.ThirdpartyClassDo">
+    insert into thirdpartyclass_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="thirdpartyclassConfigId != null">
+        thirdpartyclass_config_id,
+      </if>
+      <if test="thirdpartyclassName != null">
+        thirdpartyclass_name,
+      </if>
+      <if test="thirdpartyclassClasspah != null">
+        thirdpartyclass_classpah,
+      </if>
+      <if test="thirdpartyclassIsenabled != null">
+        thirdpartyclass_isenabled,
+      </if>
+      <if test="thirdpartyclassCreateby != null">
+        thirdpartyclass_createby,
+      </if>
+      <if test="thirdpartyclassCreatedt != null">
+        thirdpartyclass_createdt,
+      </if>
+      <if test="thirdpartyclassModifiedby != null">
+        thirdpartyclass_modifiedby,
+      </if>
+      <if test="thirdpartyclassModifieddt != null">
+        thirdpartyclass_modifieddt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="thirdpartyclassConfigId != null">
+        #{thirdpartyclassConfigId,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyclassName != null">
+        #{thirdpartyclassName,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyclassClasspah != null">
+        #{thirdpartyclassClasspah,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyclassIsenabled != null">
+        #{thirdpartyclassIsenabled,jdbcType=BIT},
+      </if>
+      <if test="thirdpartyclassCreateby != null">
+        #{thirdpartyclassCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyclassCreatedt != null">
+        #{thirdpartyclassCreatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirdpartyclassModifiedby != null">
+        #{thirdpartyclassModifiedby,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyclassModifieddt != null">
+        #{thirdpartyclassModifieddt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xxl.job.admin.core.model.ThirdpartyClassDo">
+    update thirdpartyclass_config
+    <set>
+      <if test="thirdpartyclassName != null">
+        thirdpartyclass_name = #{thirdpartyclassName,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyclassClasspah != null">
+        thirdpartyclass_classpah = #{thirdpartyclassClasspah,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyclassIsenabled != null">
+        thirdpartyclass_isenabled = #{thirdpartyclassIsenabled,jdbcType=BIT},
+      </if>
+      <if test="thirdpartyclassCreateby != null">
+        thirdpartyclass_createby = #{thirdpartyclassCreateby,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyclassCreatedt != null">
+        thirdpartyclass_createdt = #{thirdpartyclassCreatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirdpartyclassModifiedby != null">
+        thirdpartyclass_modifiedby = #{thirdpartyclassModifiedby,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdpartyclassModifieddt != null">
+        thirdpartyclass_modifieddt = #{thirdpartyclassModifieddt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where thirdpartyclass_config_id = #{thirdpartyclassConfigId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xxl.job.admin.core.model.ThirdpartyClassDo">
+    update thirdpartyclass_config
+    set thirdpartyclass_name = #{thirdpartyclassName,jdbcType=VARCHAR},
+      thirdpartyclass_classpah = #{thirdpartyclassClasspah,jdbcType=VARCHAR},
+      thirdpartyclass_isenabled = #{thirdpartyclassIsenabled,jdbcType=BIT},
+      thirdpartyclass_createby = #{thirdpartyclassCreateby,jdbcType=VARCHAR},
+      thirdpartyclass_createdt = #{thirdpartyclassCreatedt,jdbcType=TIMESTAMP},
+      thirdpartyclass_modifiedby = #{thirdpartyclassModifiedby,jdbcType=VARCHAR},
+      thirdpartyclass_modifieddt = #{thirdpartyclassModifieddt,jdbcType=TIMESTAMP}
+    where thirdpartyclass_config_id = #{thirdpartyclassConfigId,jdbcType=VARCHAR}
+  </update>
+</mapper>
